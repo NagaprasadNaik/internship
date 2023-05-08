@@ -40,7 +40,7 @@ function sendMail($email){
         //Content
         $mail->isHTML(true);                                  
         $mail->Subject = 'Email verification.';
-        $mail->Body    = 'http://localhost/UserFunction/pPaisaBOX/project-1/email_verification.php?email='.$email.'';
+        $mail->Body    = 'http://localhost/UserFunction/internship/project-1/email_verification.php?email='.$email.'';
     
         $mail->send();
         return true;

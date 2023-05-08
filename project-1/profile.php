@@ -203,23 +203,6 @@
 
         <li class="nav-item">
             <a href="#" class="nav-link active me-2 fw-bold" role="button" onclick="confirmLogout()">Logout</a>
-            <!-- data-bs-toggle="modal" data-bs-target="#modal" -->
-            <!-- <div class="modal fade" id="modal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                           <p class="fw-bold">Confirm Logout</p> 
-                        </div>
-                        <div class="modal-body mt-2 mb-2 ps-5 ">
-                           <p class="fs-5">Are you sure! you want to logout?</p> 
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn btn-danger" data-bs-dismiss="modal" data-bs-target="#modal">No</button> 
-                           <a href="logout.php"><button class="btn btn-success">Yes</button></a>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
         </li>
     </ul>
     </div>
@@ -230,9 +213,6 @@
 <!-- Information Start-->
 <section id="banner">
     <div class="container">
-        <?php 
-            //while($row = mysqli_fetch_assoc($result)){
-        ?>
         <div class="row">
             <div class="col-md-6">
                 <div class="name">
@@ -248,45 +228,6 @@
             </div>            
         </div>
         
-        <!-- <div class="row d-flex justify-content-center">
-            <div class="col md-10 mt-5 pt-5">
-                <div class="row shadow">
-                    <div class="col-sm-4 bg-warning">
-                        <div class="card-block text-center text-white">
-                            <i class="fa fa-user fa-7x mt-5" style="font-size: 100px;"></i>
-                            <h2 class="fw-bold mt-4 mb-5 text-uppercase text-primary-emphasis"><?php echo $row['name']?></h2>
-                        </div>
-                    </div>
-                    <div class="col-sm-8 bg-white rounded-right border border-1">
-                        <h3 class="mt3 text-center">Information</h3>
-                        <hr class="bg-primary">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <p class="fw-bold">Email : </p>
-                                <p class="text-muted"><?php echo $row['email']?></p>
-                            </div>
-                            <div class="col-sm-6">
-                                <p class="fw-bold">Phone : </p>
-                                <p class="text-muted"><?php echo $row['phone']?></p>
-                            </div>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col-sm-6">
-                                <p class="fw-bold">Password : </p>
-                                <p class="text-muted"><?php echo $row['password']?></p>
-                            </div>
-                            <div class="col-sm-6">
-                                <p class="fw-bold">Role : </p>
-                                <p class="text-muted"><?php echo $row['role']?></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-        <?php
-            //}
-            ?>
     </div>
     <img class="banner-footer" src="assets/images/wave1.png">
 </section>

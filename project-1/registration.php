@@ -4,6 +4,10 @@
     
     session_start();
 
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\SMTP;
+    use PHPMailer\PHPMailer\Exception; 
+
     $con = mysqli_connect($servername, $username, $password, $database);
 
 	function testinput($data) {
@@ -13,11 +17,44 @@
         return $data;
     }
 
-    $nameErr = $phErr = $emailErr = $passErr= $passmatchErr ="" ;
+    $nameErr = $phErr = $emailErr = $passErr= $passmatchErr = $isSent ="" ;
     $name_value = $phone_value = $email_value = $pass_value = $pass2_value="";
     // $_SESSION['login_attempts'] = 0 ;
     // $_SESSION['locked'] = '';
 
+
+    function sendMail($email){
+        require 'PhpMailer/PHPMailer.php';
+        require 'PhpMailer/SMTP.php';
+        require 'PhpMailer/Exception.php';
+
+        $mail = new PHPMailer(true);
+
+        try {
+
+            $mail->isSMTP();                                           
+            $mail->Host       = 'smtp.gmail.com';                    
+            $mail->SMTPAuth   = true;                                   
+            $mail->Username   = 'openmail12345678@gmail.com';                     
+            $mail->Password   = 'dscqqpxoeschccez';                               
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            
+            $mail->Port       = 465;                                    
+        
+            //Recipients
+            $mail->setFrom('openmail12345678@gmail.com', 'Prasad');   
+            $mail->addAddress($email);               
+        
+            //Content
+            $mail->isHTML(true);                                  
+            $mail->Subject = 'Reset your password';
+            $mail->Body    = 'http://localhost/UserFunction/internship/project-1/email_verification.php?email='.$email.'';
+        
+            $mail->send();
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
 
     //get form data
     if(isset($_POST['submit'])){
@@ -132,22 +169,31 @@
             $_SESSION['email'] = $email;
             $_SESSION['status'] = false;
             $_SESSION['logged'] = true;
-                //insert data into DB
-                // $hashed_pass = password_hash($password,PASSWORD_DEFAULT);
-                // $sql = "INSERT INTO user (name,phone,email,password,role) VALUES ('$username','$phone','$email','$password','user')";
                 
-                    $otp = rand(100000,999999);
-                    $sql = "INSERT INTO user (name,phone,email,password,role,otp) VALUES ('$username','$phone','$email','$password','user',$otp)";
+                    $sql = "INSERT INTO user (name,phone,email,password,role) VALUES ('$username','$phone','$email','$password','user')";
                     //Send mail to user
-                    $to = $email;
-                    $subject = 'Email verification code';
-                    $message = 'your 6 digit registration otp is '. $otp . '.';
-                    $headers = 'From: webmaster@example.com' . '\r\n';
-
-                    if(mail($to, $subject, $message, $headers)){ 
-                        mysqli_query($con,$sql);
-                        header('Location: login.php');
+                    try{
+                        $result = mysqli_query($con,$sql);
+                        $isSent = sendMail($email);
+                        if($isSent){
+                            ?>
+                                <script>
+                                        alert('Email verification link hass been sent to your email address. Please verify.');
+                                        window.location = 'login.php';
+                                </script>
+                            <?php
+                        }else{
+                            ?>
+                            <script>
+                                    alert('Invalid email address.');
+                                    window.location = 'registration.php';
+                            </script>
+                        <?php
+                        }
+                    }catch(Exception $e){
+                        echo "<script>alert('Error: please try after some time.')</script>";
                     }
+                    
             }
         }
 ?>
@@ -178,60 +224,10 @@
                 transition: background-color 5000s ease-in-out 0s;
             }
         </style>
-        <!-- <style>
-            .cardshadow{
-                box-shadow: 15px 15px 20px black;
-            }
-            .eye{
-                position:absolute;
-            }
-            .field{
-                margin-right:50px;
-            }
-            img {
-                width: 90%;
-                height: auto;
-            }
-            html, body {
-                margin: 0;
-            }
-            body {
-                /* position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%); */
-            }
-            .box {
-                width: 100%;
-                background: white;
-                /* background: #73C8A9;
-                background: -webkit-linear-gradient(to right, #373B44, #73C8A9);
-                background: linear-gradient(to right, #373B44, #73C8A9); */
-                
-            }
-            .container {
-                width:100%;
-                height: auto; /* adjust this to the desired height */
-                margin: 0 auto; /* center horizontally */
-                margin-top: 0; /* flush with top edge */
-                margin-bottom: 0; /* flush with bottom edge */
-            }
-            .heading{
-                font-size: 45px;
-                background: -webkit-linear-gradient(#00d4ff, #001875);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-            }
-    </style> -->
 </head>
 <body class="box">
     <section class="registration">
                 <div class="container bg-white pb-2">  
-                    <!-- <div class="row justify-content-center">
-                        <div class="heading col-10">
-                                <h3>Create Account</h3>
-                        </div>
-                    </div> -->
                     <div class="row justify-content-center">
 
                     <div class="col-5 image">
@@ -285,7 +281,6 @@
                         </div>
                     </div>
 
-                    <!-- <hr class='text-info' style="border: 2px solid"> -->
                 </div>
             </div>
             

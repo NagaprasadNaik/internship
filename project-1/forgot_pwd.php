@@ -40,7 +40,7 @@
             //Content
             $mail->isHTML(true);                                  
             $mail->Subject = 'Reset your password';
-            $mail->Body    = 'http://localhost/UserFunction/PPaisaBOX/project-1/forgot_pwd.php?id=2';
+            $mail->Body    = 'http://localhost/UserFunction/intership/project-1/forgot_pwd.php?id=2';
         
             $mail->send();
             return true;
