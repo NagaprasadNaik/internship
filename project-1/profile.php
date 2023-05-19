@@ -48,6 +48,7 @@
     use PHPMailer\PHPMailer\Exception;  
 
     function sendMail($to,$sub,$mes,$email){
+
         require 'PhpMailer/PHPMailer.php';
         require 'PhpMailer/SMTP.php';
         require 'PhpMailer/Exception.php';
@@ -160,7 +161,6 @@
 ?>
 
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -186,7 +186,7 @@
     <div class="logo">
         <a href="profile.php" ><img id="main-logo" src="assets/images/PROFILE-bg.png" /></a>
     </div>
-    <ul class="navbar-nav ml-auto">
+    <ul class="navbar-nav ml-auto ">
         <li class="nav-item">
             <a href="#mail" class="nav-link active ms-2 me-2 fw-bold">Mail</a>
         </li>
@@ -289,7 +289,7 @@
                     </div>
                     <div class="form-area">
                         <input type="email" placeholder="Enter your email" class="inputs">
-                        <button type="submit" class="button-style">subscribe</button>
+                        <a href="#banner"><button type="submit" class="button-style">subscribe</button></a>
                     </div>
             </div>
         </div>

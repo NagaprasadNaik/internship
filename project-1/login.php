@@ -37,7 +37,7 @@ function sendMail($email){
         $mail->setFrom('openmail12345678@gmail.com', 'Prasad');   
         $mail->addAddress($email);               
 
-        //Content
+        //Content 
         $mail->isHTML(true);                                  
         $mail->Subject = 'Email verification.';
         $mail->Body    = 'http://localhost/UserFunction/internship/project-1/email_verification.php?email='.$email.'';
